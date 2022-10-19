@@ -1,0 +1,12 @@
+
+html(lang="en")
+  head
+    include includes/head.pug
+  body
+    h1= message
+    h2 Join session
+    form(action="#")
+      input(type="text", placeholder="Enter session id") 
+      button(type="submit") join
+    h2 or
+    button(onclick="window.location='/session/create'") create session
