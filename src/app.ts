@@ -14,10 +14,11 @@ const port = process.env.PORT;
 const viewFolder = path.join(__dirname, 'views')
 app.set('view engine', 'pug');
 app.set('views', viewFolder);
+app.use('/img', express.static(path.join(__dirname, 'views/includes/img')));
 
 //  Render home page
 app.get('/', (req: Request, res: Response) => {
-    res.render('index', { title: 'Index', message: 'Hello there!' })
+    res.render('index', { title: 'Index' })
 });
 
 app.get('/session/create', (req: Request, res: Response) => {

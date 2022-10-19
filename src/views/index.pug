@@ -3,10 +3,26 @@ html(lang="en")
   head
     include includes/head.pug
   body
-    h1= message
-    h2 Join session
-    form(action="#")
-      input(type="text", placeholder="Enter session id") 
-      button(type="submit") join
-    h2 or
-    button(onclick="window.location='/session/create'") create session
+
+    div.container-fluid
+      div.row.home-row
+        div.col
+          h1.text-center.mb-5 Online System Design Interview
+          div.card
+            div.card-body
+              h5.card-title Join session
+              form(action="#")
+                input.form-control(type="text", placeholder="Enter session id") 
+                br
+                button.btn.btn-dark(type="submit") Join
+              h2 or
+              button.btn.btn-info(onclick="window.location='/session/create'") create session
+              hr
+              p This web application can help you to explain and design a system
+          img(src='img/faang.jpg')
+        div.col
+          img(src='img/cloud1.jpg')
+
+    
+
+  include includes/footer.pug
