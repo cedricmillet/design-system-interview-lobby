@@ -29,8 +29,8 @@ app.get('/session/:uid', (req: Request, res: Response) => {
     const uid = req.params['uid'];
     const interview  = Interview.find(uid);
     if(interview === undefined)
-        res.status(404).render('Interview not found');
-    else res.render('session', { uid, title: 'Interview' })
+        res.status(404).render('404');
+    else res.render('session', { uid, title: `Interview-${uid}` })
 });
 
 
