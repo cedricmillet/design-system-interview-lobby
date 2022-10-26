@@ -4,6 +4,7 @@ html(lang="en")
     include includes/head.pug
   body
 
+    //  Navbar
     nav.navbar.navbar-dark.bg-dark
       span.navbar-brand.mb-0.h1 Interview ##{uid}
       div.form-inline
@@ -14,5 +15,40 @@ html(lang="en")
         button.btn.btn-sm.btn-danger(onclick="if(confirm('Exit this design ?')) window.location='/'")
           i.bi.bi-power 
           span Exit interview
-        
+    
+    //  Interview container
+    section#interview-container
+
+    section#sidenav.container.m-0
+      h2 Toolbox 
+      hr
+
+      .card.mb-2(onclick="interview.addElement('square')")
+        .card-body
+          i.bi.bi-bounding-box 
+          span Square
+      .card.mb-2
+        .card-body
+          i.bi.bi-slash 
+          span Line
+      .card.mb-2
+        .card-body
+          i.bi.bi-code 
+          span Code extract
+      .card.mb-2
+        .card-body
+          i.bi.bi-fonts 
+          span Text
+      .card.mb-2
+        .card-body
+          i.bi.bi-image 
+          span Image
+
+  //  Footer
   include includes/footer.pug 
+
+  //  Interview client logic
+  script
+    include includes/js/interview.js
+  script
+    include includes/js/lobby.js
