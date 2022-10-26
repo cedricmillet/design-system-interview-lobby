@@ -16,21 +16,28 @@ app.set('view engine', 'pug');
 app.set('views', viewFolder);
 app.use('/img', express.static(path.join(__dirname, 'views/includes/img')));
 
-//  Render home page
+/**
+ * Index
+ */
 app.get('/', (req: Request, res: Response) => {
     res.render('index', { title: 'Index' })
 });
 
+/**
+ * Create an interview
+ */
 app.get('/session/create', (req: Request, res: Response) => {
     const uid = Interview.create()
     res.redirect(`/session/${uid}`)
 });
 
+/**
+ * Join Interview
+ */
 app.get('/session/:uid', (req: Request, res: Response) => {
     const uid = req.params['uid'];
     const interview  = Interview.find(uid);
-    if(interview === undefined)
-        res.status(404).render('404');
+    if(interview === undefined) res.status(404).redirect('/?error=InterviewNotFound');
     else res.render('session', { uid, title: `Interview-${uid}` })
 });
 
