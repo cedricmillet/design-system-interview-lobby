@@ -14,15 +14,19 @@ html(lang="en")
               form(action="#")
                 input.form-control#sessid(type="text", placeholder="Enter session id") 
                 br
-                button.btn.btn-dark(type="button", onclick="window.location='/session/'+document.getElementById('sessid').value") Join
+                button.btn.btn-dark(type="button", onclick="window.location='/session/'+document.getElementById('sessid').value") 
+                  i.bi.bi-plug
+                  span Join 
               h2 or
-              button.btn.btn-info(onclick="window.location='/session/create'") create session
+              button.btn.btn-info(onclick="window.location='/session/create'")
+                i.bi.bi-plus-square 
+                span Create interview 
               hr
               p This web application can help you to explain and design a system
               div.alert.alert-warning This is an alpha.
-          img(src='img/faang.jpg')
+          img(src='assets/img/faang.jpg')
         div.col
-          img(src='img/cloud1.jpg')
+          img(src='assets/img/cloud1.jpg')
 
     
 

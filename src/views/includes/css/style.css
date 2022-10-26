@@ -26,3 +26,9 @@ footer {
     align-items: center;
     height: 100vh;
 }
+
+
+/** interview */
+nav button {
+    margin-left: 1em
+}
