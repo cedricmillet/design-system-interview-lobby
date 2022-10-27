@@ -4,7 +4,7 @@ dotenv.config();
 import express, { Express, Request, Response } from 'express';
 import path from 'path';
 import { Interview } from './Interview';
-import { WebSocketServer } from './WebSocketServer';
+import { Lobby } from './Lobby';
 
 const app: Express = express();
 const port = process.env.PORT;
@@ -58,4 +58,5 @@ app.listen(port, () => {
   console.log(`⚡️ Server is running at https://localhost:${port}`);
 });
 
-WebSocketServer.listen()
+
+Lobby.listen()

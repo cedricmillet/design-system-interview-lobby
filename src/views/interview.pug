@@ -23,7 +23,7 @@ html(lang="en")
       h2 Toolbox 
       hr
 
-      .card.mb-2(onclick="interview.addElement('square')")
+      .card.mb-2(onclick="diagram.addElement('square')")
         .card-body
           i.bi.bi-bounding-box 
           span Square
@@ -44,11 +44,14 @@ html(lang="en")
           i.bi.bi-image 
           span Image
 
+      console
+        ul
+
   //  Footer
   include includes/footer.pug 
 
   //  Interview client logic
   script
-    include includes/js/interview.js
+    include includes/js/diagram.js
   script
     include includes/js/lobby.js
