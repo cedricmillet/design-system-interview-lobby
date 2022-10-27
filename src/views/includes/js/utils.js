@@ -14,3 +14,8 @@ function uuid() {
 
     return s.join("");
 }
+
+//  Export modules (test execution)
+try {
+    module.exports = { uuid };
+ } catch (e) {}
