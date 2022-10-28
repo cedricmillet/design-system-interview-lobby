@@ -17,7 +17,7 @@ export class Lobby {
             const uid = req.url.replace('/', '');
             const interview = Interview.find(uid);
             ws.uid = uid;
-            
+
             if(interview === undefined) {
                 ws.close();
                 console.error(`Unknown interview`, uid)

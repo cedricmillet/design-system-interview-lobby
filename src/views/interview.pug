@@ -2,6 +2,8 @@
 html(lang="en")
   head
     include includes/head.pug
+    style
+      include includes/css/diagram.css
   body
 
     //  Navbar
@@ -20,10 +22,29 @@ html(lang="en")
     section#interview-container
 
     section#sidenav.container.m-0
-      h2 Toolbox 
+      h4 Options
+      span#selectedObject
+      input(type="color")
+      button.btn.btn-sm.btn-warning(onclick="if(confirm('Clear design ?')) diagram.clear()")
+          i.bi.bi-trash 
+          span Clear diagram
       hr
 
-      //TODO: input(type="color")
+      ul.nav.nav-tabs 
+        li.nav-item
+          a.nav-link.active 
+            i.bi.bi-tools 
+            span Toolbox
+        li.nav-item
+          a.nav-link 
+            i.bi.bi-chat 
+            span Chat
+        li.nav-item
+          a.nav-link 
+            i.bi.bi-info 
+            span Infos
+      br
+      
 
       .card.mb-2(onclick="diagram.addElement('square')")
         .card-body

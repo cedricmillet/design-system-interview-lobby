@@ -76,24 +76,3 @@ section#interview-container {
     background-size: 40px 40px;
 }
 
-
-/*
- *  Diagram Objects
- */
-section#interview-container div.obj {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    min-width: 1em;
-    min-height: 1em;
-    background-color: red;
-    cursor: grab;
-}
-
-/* Square */
-section#interview-container div.obj[data-type="square"] {
-    background: #fff;
-    border: 1px solid black;
-    width: 3em;
-    height: 3em;
-}

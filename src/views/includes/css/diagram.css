@@ -1,0 +1,33 @@
+/*************************************************
+ * Diagram objects shape
+ *      ..Squares, rectangles, triangles...
+ ************************************************/
+
+/* Generic object */
+section#interview-container div.obj {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 1em;
+    min-height: 1em;
+    background-color: red;
+    cursor: grab;
+}
+
+/** Selected object */
+section#interview-container div.obj.selected { 
+    border: 2px dashed rgb(165, 26, 66) !important;
+}
+
+/** Square */
+section#interview-container div.obj[data-type="square"] {
+    background: #fff;
+    border: 1px solid black;
+    width: 3em;
+    height: 3em;
+}
+
+/** Line */
+/** Text */
+/** Pyramid */
+/** ... */
