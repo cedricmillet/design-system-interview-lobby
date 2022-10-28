@@ -16,13 +16,16 @@ export class Lobby {
         this.wss.on("connection", (ws:any, req:any) => {
             const uid = req.url.replace('/', '');
             const interview = Interview.find(uid);
+            ws.uid = uid;
+            
             if(interview === undefined) {
                 ws.close();
                 console.error(`Unknown interview`, uid)
                 return;
             }
 
-            console.log(`[${uid}] New client connected.`)
+            ws.send(JSON.stringify({event: 'diagUpdate', data: interview.data}))
+            console.log(`[${uid}] New client connected, sending diagram`)
 
             // sending message
             ws.on("message", (msg:any) => {
@@ -50,11 +53,15 @@ export class Lobby {
         
     }
 
-    public static broadcast(type:string, data:any) {
+    public static broadcast(uid:string, type:string, data:any) {
         if(!(this.wss instanceof WebSocketServer)) {
             throw new Error(`Unable to broadcast without valid WebSocketServer`);
         }
-
-        console.log(`[broadcast] TODO`)
+        
+        console.log(`[broadcast] ${type}`)
+        for(let client of this.wss.clients) {
+            if((client as any).uid !== uid) continue;
+            client.send(JSON.stringify({event: type, data}))
+        }
     }
 }

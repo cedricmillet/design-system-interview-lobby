@@ -9,12 +9,12 @@ export class Interview {
     /**
      * Interview uniqID
      */
-     public uid: string;
+    public uid: string;
 
     /**
      * JSON diagram
      */
-    private data: any[] = []
+    public data: any[] = []
 
     constructor(uid:string) {
         this.uid = uid;
@@ -57,7 +57,7 @@ export class Interview {
      * Broadcast update to all clients
      */
     private broadcastDiagram() {
-        Lobby.broadcast('diagUpdate', this.data);
+        Lobby.broadcast(this.uid, 'diagUpdate', this.data);
     }
 
 

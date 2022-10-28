@@ -18,9 +18,21 @@ const Lobby = {
         this.socket.onopen = () => {
             Lobby.status(`Successfully connected to ${WS_SERVER}`);
         };
-        this.socket.addEventListener('message', (event) => {
-            Lobby.log('receiving from server')
-            console.log('Message from server ', event.data);
+        /**
+         * Receive data from server
+         */
+        this.socket.addEventListener('message', (e) => {
+            const msg = JSON.parse(e.data);
+            Lobby.log(`[SERVER] ${msg.event}`);
+            console.log('[Server] ', msg);
+            switch (msg.event) {
+                case 'diagUpdate':
+                    diagram.updateFromJSON(msg.data);
+                    break;
+                default:
+                    console.warn(`Unknown event type: ${msg.event}`)
+                    break;
+            }
         });
     },
     /**
@@ -29,14 +41,15 @@ const Lobby = {
      * @param {*} data 
      */
     send: function(event, data) {
+        console.log('[Me] ', event, data);
         this.socket.send(JSON.stringify({event, data}))
     },
     /**
      * Send diagram update to server
      */
-    updateDiagram: function() {
+    sendDiagramUpdate: function() {
         this.send('diagUpdate', diagram.toJSON());
-        Lobby.log('sending update to server')
+        Lobby.log('[Me] diagUpdate')
     },
     /**
      * Set lobby status (informative)
