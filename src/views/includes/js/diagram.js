@@ -3,6 +3,10 @@ const getContainer = () => document.getElementById('interview-container')
 const OBJECT_CLASSNAME = 'obj';
 
 const diagram = {
+    clear: function() {
+        getContainer().innerHTML = "";  // Bruteforce but perfect
+        Lobby.sendDiagramUpdate()
+    },
     //  Adds an element to diagram
     addElement: function (type) {
         const elem = createDiagramElement(type);
@@ -22,8 +26,9 @@ const diagram = {
     //  Update DOM elements from JSON object
     updateFromJSON: (jsonElements) => {
         if(!Array.isArray(jsonElements)) throw new Error(`jsonElements must be an Array`)
-        Lobby.log('TODO: update diagram from json')
-        const parent = getContainer()
+        const parent = getContainer();
+
+        //  Create / Update
         for(const jsonElement of jsonElements) {
             const domElement = parent.querySelector(`.obj[data-uuid="${jsonElement.uuid}"]`)
             if(domElement) {        //  Update
@@ -33,8 +38,14 @@ const diagram = {
                 updateDiagramElement(newElement, jsonElement)
                 getContainer().appendChild(newElement);
             }
-            //  TODO: DELETE ELEMENT
         }
+
+        //  Delete
+        Array.from(parent.children).forEach(child => {
+            const uuid = child.getAttribute('data-uuid');
+            if(jsonElements.find(elem => elem.uuid === uuid)) return;
+            parent.removeChild(child);
+        });
     },
 
 }
@@ -99,9 +110,34 @@ const createDiagramElement = (typeOrJSONData) => {
             // set the element's new position:
             elem.style.top = (elem.offsetTop - pos2) + "px";
             elem.style.left = (elem.offsetLeft - pos1) + "px";
-            Lobby.sendDiagramUpdate() // TODO: delete me !
+            // Lobby.sendDiagramUpdate() // TODO: delete me !
         }
     }
 
     return elem;
 }
+
+
+//  Select / unselect diagram objects
+const container = getContainer();
+container.addEventListener('mousedown', (event) => {
+    const selectedClass = `selected`;
+    const obj = event.target;
+
+    //  Usefull methods to select DOM obj
+    const select = (domObj) => domObj.classList.add(selectedClass);
+    const isSelected = (domObj) => domObj.classList.contains(selectedClass);
+    const unselect = () => container.querySelectorAll(`.${selectedClass}`).forEach(elem => {
+        elem.classList.remove(selectedClass);
+    });
+
+    //  Select / unselect logic
+    if(event.target === container) {
+        unselect();
+    } else if(obj.classList.contains(OBJECT_CLASSNAME) && !isSelected(obj)) {
+        unselect();
+        select(obj);
+    }
+
+    document.getElementById('selectedObject').innerHTML = obj.classList.toString()
+})
