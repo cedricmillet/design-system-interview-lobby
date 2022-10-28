@@ -44,9 +44,8 @@ section#sidenav {
     background-color: rgb(244, 240, 240);
 }
 
-section#sidenav .card {
-    cursor: pointer;
-}
+section#sidenav .card { cursor: pointer; }
+section#sidenav .card:hover { background-color: azure; }
 
 /* Console */
 console {
@@ -76,3 +75,8 @@ section#interview-container {
     background-size: 40px 40px;
 }
 
+
+.service-icon {
+    cursor: pointer;
+    width: 48px;
+}

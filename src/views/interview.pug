@@ -46,7 +46,7 @@ html(lang="en")
       br
       
 
-      .card.mb-2(onclick="diagram.addElement('square')")
+      .card.mb-2(onclick="diagram.addSquare()")
         .card-body
           i.bi.bi-bounding-box 
           span Square
@@ -67,6 +67,8 @@ html(lang="en")
           i.bi.bi-image 
           span Image
 
+      section#service-icons
+
       console
         ul
 
@@ -74,6 +76,8 @@ html(lang="en")
   include includes/footer.pug 
 
   //  Interview client logic
+  script
+    include includes/js/toolbox.js
   script
     include includes/js/diagram.js
   script

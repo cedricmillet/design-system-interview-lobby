@@ -27,6 +27,15 @@ section#interview-container div.obj[data-type="square"] {
     height: 3em;
 }
 
+/** Image */
+section#interview-container div.obj[data-type="image"] {
+    background: transparent;
+    border: none;
+    width: 4em;
+    height: 4em;
+    background-size: cover;
+}
+
 /** Line */
 /** Text */
 /** Pyramid */
