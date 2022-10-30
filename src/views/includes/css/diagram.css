@@ -2,7 +2,11 @@
  * Diagram objects shape
  *      ..Squares, rectangles, triangles...
  ************************************************/
-
+section#interview-container {
+    --selected-color: rgb(165, 26, 66);
+    --helper-color: rgb(237, 91, 132);
+}
+ 
 /* Generic object */
 section#interview-container div.obj {
     position: absolute;
@@ -14,9 +18,17 @@ section#interview-container div.obj {
     cursor: grab;
 }
 
+/* Object anchor points */
+section#interview-container div.obj[data-type="helper"] {
+    background-color: var(--helper-color);
+    cursor: crosshair;
+    opacity: .8;
+    border-radius: 50%;
+}
+
 /** Selected object */
 section#interview-container div.obj.selected { 
-    border: 2px dashed rgb(165, 26, 66) !important;
+    border: 2px dashed var(--selected-color) !important;
 }
 
 /** Square */
@@ -37,6 +49,15 @@ section#interview-container div.obj[data-type="image"] {
 }
 
 /** Line */
+section#interview-container div.obj[data-type="line"] {
+    background: black;
+    border: 1px solid black;
+    /*width: 50px; /!\ width value provided in javascript */
+    height: 4px;
+    min-height: 4px;
+    transform: translate(-50%, -50%) rotate(0deg);
+}
+
 /** Text */
 /** Pyramid */
 /** ... */

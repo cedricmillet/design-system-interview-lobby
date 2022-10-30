@@ -10,6 +10,10 @@ html(lang="en")
     nav.navbar.navbar-dark.bg-dark
       span.navbar-brand.mb-0.h1 Interview ##{uid}
       div.form-inline
+        button.btn.btn-sm.btn-warning(onclick="alert('TODO')")
+          i.bi.bi-bug 
+          span Toggle console 
+        
         button.btn.btn-sm.btn-primary(onclick="alert('Share this URL: ' + window.location)")
           i.bi.bi-share 
           span Share
@@ -50,7 +54,7 @@ html(lang="en")
         .card-body
           i.bi.bi-bounding-box 
           span Square
-      .card.mb-2
+      .card.mb-2(onclick="diagram.addLine()")
         .card-body
           i.bi.bi-slash 
           span Line

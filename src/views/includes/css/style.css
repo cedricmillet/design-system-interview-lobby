@@ -75,8 +75,12 @@ section#interview-container {
     background-size: 40px 40px;
 }
 
+section#service-icons {
+    height: 30vh;
+    overflow-y: auto;
+}
 
-.service-icon {
+section#service-icons .service-icon {
     cursor: pointer;
     width: 48px;
 }

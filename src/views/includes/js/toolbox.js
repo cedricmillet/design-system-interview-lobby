@@ -19,6 +19,7 @@ const AWS_ICONS = [
     "Res_Amazon-ElastiCache_Cache-Node_48_Light.svg",
     "Res_Amazon-DynamoDB_Items_48_Light.svg",
     //  Category Icons
+    'arch-category/Arch_AWS-Network-Firewall_48.svg',
     'arch-category/Arch-Category_Analytics_48.svg',
     'arch-category/Arch-Category_Application-Integration_48.svg',
     'arch-category/Arch-Category_Blockchain_48.svg',
