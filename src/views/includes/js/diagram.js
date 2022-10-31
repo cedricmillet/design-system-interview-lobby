@@ -19,6 +19,11 @@ const diagram = {
     addLine: function() {
         this.addElement('line', {width: '50px'});
     },
+    //  Adds element: Text
+    addText: function() {
+        this.addElement('text', {value: 'This is a simple resizable textarea, feel free to write whatever you want here.'});
+    },
+    isTextElement: (elem) => elem.getAttribute('data-type') === 'text',
     //  Adds an element to diagram
     addElement: function (type, options=null) {
         const elem = createDiagramElement(type);
@@ -34,11 +39,13 @@ const diagram = {
                             //  Fixed properties
                             uuid: elem.getAttribute('data-uuid'),
                             type: elem.getAttribute('data-type'),
-                            //  Customizable properties
                             pos: [elem.style.left, elem.style.top],
-                            backgroundImage: elem.style.backgroundImage,
-                            width: elem.style.width,
-                            transform: elem.style.transform
+                            //  Customizable / Optional properties
+                            ...(elem.style.backgroundImage && {backgroundImage: elem.style.backgroundImage}),
+                            ...(elem.style.width && {width: elem.style.width}),
+                            ...(elem.style.height && {height: elem.style.height}),
+                            ...(elem.style.transform && {transform: elem.style.transform}),
+                            ...(elem.value && {value: elem.value}),
                         }
         }),
     //  Update DOM elements from JSON object
@@ -92,18 +99,11 @@ const updateDiagramElement = (domElement, json) => {
         updateIfNecessary('style.top', json.pos[1])
     }
 
-    if(json.hasOwnProperty('backgroundImage'))
-        updateIfNecessary('style.backgroundImage', json.backgroundImage)
-    
-    if(json.hasOwnProperty('width')) {
-        updateIfNecessary('style.width', json.width)
-    }
-
-    if(json.hasOwnProperty('transform')) {
-        updateIfNecessary('style.transform', json.transform)
-    }
-
-    //updateIfNecessary('style.background', 'blue')
+    json.hasOwnProperty('backgroundImage') && updateIfNecessary('style.backgroundImage', json.backgroundImage)
+    json.hasOwnProperty('width') && updateIfNecessary('style.width', json.width)
+    json.hasOwnProperty('height') && updateIfNecessary('style.height', json.height)
+    json.hasOwnProperty('transform') && updateIfNecessary('style.transform', json.transform)
+    json.hasOwnProperty('value') && updateIfNecessary('value', json.value)
 }
 
 /**
@@ -113,7 +113,14 @@ const updateDiagramElement = (domElement, json) => {
  */
 const createDiagramElement = (typeOrJSONData, classes=[OBJECT_CLASSNAME]) => {
     console.log(`Create diagram element: `, typeOrJSONData)
-    const elem = document.createElement('div');
+    const detectElementClassName = (data) => {
+        if(typeof data === 'object') {
+            return typeOrJSONData.type === 'text' ? 'textarea' : 'div'; 
+        } else {
+            return typeOrJSONData === 'text' ? 'textarea' : 'div';
+        }
+    }
+    const elem = document.createElement(detectElementClassName(typeOrJSONData));
 
     if(typeof typeOrJSONData === 'object') {    // Create by JSON
         if(!typeOrJSONData.uuid || !typeOrJSONData.type) {
@@ -175,12 +182,19 @@ container.addEventListener('mousedown', (event) => {
     document.getElementById('selectedObject').innerHTML = obj.classList.toString()
 })
 
+container.addEventListener('keyup', (event) => {
+    const obj = event.target;
+    //  Send diagram update when user press a key in textarea
+    if(diagram.isTextElement(obj)) {
+        Lobby.sendDiagramUpdate();
+    }
+})
+
 //  Draggable objects
 container.addEventListener('mousedown', (e) => {
     const elem = e.target;
     if(!elem || !elem.classList.contains('draggable')) return;
     e = e || window.event;
-    e.preventDefault();
     // get the mouse cursor position at startup:
     pos3 = e.clientX;
     pos4 = e.clientY;
@@ -191,6 +205,18 @@ container.addEventListener('mousedown', (e) => {
             elem.update();
         Lobby.sendDiagramUpdate()
     };
+
+    //  User is maybe trying to resize object and
+    //  may not want to drag/move object
+    const isUserTryingToResize = () => {
+        const [xa,ya] = [e.clientX, e.clientY];
+        const [xb,yb] = [elem.offsetLeft+elem.offsetWidth, elem.offsetTop+elem.offsetHeight];
+        return Math.sqrt((xa-xb)**2 + (ya-yb)**2) <= 30
+    }
+    if(diagram.isTextElement(elem) && isUserTryingToResize()) {
+        return;
+    } // else e.preventDefault(); // not usefull to disable div behaviour...
+
     // call a function whenever the cursor moves:
     document.onmousemove = function elementDrag(e) {
         e = e || window.event;

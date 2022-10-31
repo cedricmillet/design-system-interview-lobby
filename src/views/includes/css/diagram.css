@@ -8,7 +8,7 @@ section#interview-container {
 }
  
 /* Generic object */
-section#interview-container div.obj {
+section#interview-container .obj {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -19,20 +19,23 @@ section#interview-container div.obj {
 }
 
 /* Object anchor points */
-section#interview-container div.obj[data-type="helper"] {
+section#interview-container .obj[data-type="helper"] {
     background-color: var(--helper-color);
     cursor: crosshair;
     opacity: .8;
     border-radius: 50%;
 }
 
-/** Selected object */
-section#interview-container div.obj.selected { 
+/** When object is selected */
+section#interview-container .obj.selected { 
     border: 2px dashed var(--selected-color) !important;
 }
 
+/** When object is focused */
+section#interview-container .obj:focus { outline: none; }
+
 /** Square */
-section#interview-container div.obj[data-type="square"] {
+section#interview-container .obj[data-type="square"] {
     background: #fff;
     border: 1px solid black;
     width: 3em;
@@ -40,7 +43,7 @@ section#interview-container div.obj[data-type="square"] {
 }
 
 /** Image */
-section#interview-container div.obj[data-type="image"] {
+section#interview-container .obj[data-type="image"] {
     background: transparent;
     border: none;
     width: 4em;
@@ -49,7 +52,7 @@ section#interview-container div.obj[data-type="image"] {
 }
 
 /** Line */
-section#interview-container div.obj[data-type="line"] {
+section#interview-container .obj[data-type="line"] {
     background: black;
     border: 1px solid black;
     /*width: 50px; /!\ width value provided in javascript */
@@ -59,5 +62,11 @@ section#interview-container div.obj[data-type="line"] {
 }
 
 /** Text */
+section#interview-container .obj[data-type="text"] {
+    background: #fff;
+    border: none;
+    resize: both;
+}
+
 /** Pyramid */
 /** ... */
